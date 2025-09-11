@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 
+    *(0) < tag(1) < class(10) < id(100) < inline style(script) < important 
+*/
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ui,li{
+            list-style: none;
+        }
+
+        a:link,a:visited{
+            text-decoration: none;
+            color: black;
+        }
+
+        /* header  */
+        #header h1{
+
+        }
+        #nav > ul > li{}
+        /* section */
+        #section h2.title{}
+        #section p{}
+
+        /* common */
+        h2.title{}
+    </style>
+</head>
+<body>
+    <!-- header -->
+    <div id="header">
+        <h1 class="logo">로고</h1>
+        <div id="nav">메뉴
+            <ul class="mWrap">
+                <li>menu1
+                    <ul>
+                        <li>sub</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- selection -->
+    <div id="section">
+        <h2 class="title">section</h2>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque aut repellat, iure assumenda harum ex doloremque, soluta itaque ut dolor obcaecati accusantium fugit explicabo optio repellendus suscipit fugiat dolorem. Laboriosam?        
+        </p>
+    </div>
+
+    <!-- footer -->
+    <div id="footer">
+        <h2>footer</h2>
+    </div>
+</body>
+</html>

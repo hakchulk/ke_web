@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- link:css -->
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      .bodyWrap {
+        display: block;
+      }
+      .visualWrap {
+        width: 1200px;
+        height: 750px;
+        /* background-color: skyblue; */
+        background-image: url(img/visual02.png);
+        margin-left: auto;
+        margin-right: auto;
+        padding: 100px;
+        border-radius: 30px;
+      }
+      .contWrap {
+        width: 500px;
+        /* 부모가 크기값이 있어야 한다. */
+        height: 100%;
+        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .btnWrap .btn {
+        background-color: black;
+        border: 0 none;
+        padding: 18px 20px;
+        border-radius: 30px;
+        color: white;
+      }
+      .btnWrap .btn.outline {
+        background: none;
+        color: black;
+        font-weight: 700;
+        border: 1px solid #000;
+      }
+
+      /* header */
+      .headerWrap {
+        display: flex;
+        justify-content: space-between;
+        width: 1200px;
+        margin: 10px auto;
+        align-items: center;
+      }
+
+      nav ul {
+        display: flex;
+      }
+      nav ul li {
+        display: block;
+        padding: 10px 20px;
+        font-weight: bold;
+      }
+
+      .utilWrap {
+        display: flex;
+        height: 24px;
+        gap: 10px;
+      }
+
+      .card {
+        width: 380px;
+        cursor: pointer;
+      }
+      .card img {
+        width: 100%;
+        border-radius: 10px;
+        transition: 0.3s;
+      }
+      .card .card-body {
+        padding: 16px;
+      }
+      .cardWrap {
+        width: 1200px;
+        display: flex;
+        justify-content: space-between;
+        margin: 20px auto;
+        flex-wrap: wrap;
+      }
+      .card:hover img {
+        transform: translate(-10px, -10px);
+        /* transform: rotate(45deg); */
+        box-shadow: 10px 10px 20px rgb(0, 0, 0, 0.3);
+      }
+      .bodyWrap h2 {
+        text-align: center;
+        padding: 16px; /*사방*/
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bodyWrap">
+      <div class="headerWrap">
+        <div>
+          <img src="img/logo02.png" width="103" alt="My회사" />
+        </div>
+        <nav>
+          <ul>
+            <li>학교교육</li>
+            <li>교사연수</li>
+            <li>학교교육</li>
+            <li>학교교육</li>
+          </ul>
+        </nav>
+        <div class="utilWrap">
+          <img src="img/btn01_01.png" alt="" />
+          <img src="img/btn01_02.png" alt="" />
+          <img src="img/btn01_03.png" alt="" />
+        </div>
+      </div>
+      <div class="visualWrap">
+        <div class="contWrap">
+          <div>
+            <h2>Lorem ipsum dolor sit,</h2>
+            <h4>Lorem ipsum dolor sit amet.</h4>
+          </div>
+          <div class="btnWrap">
+            <button class="btn">25년 2학기 학교교육 신청</button>
+            <button class="btn outline">소식받기</button>
+          </div>
+        </div>
+      </div>
+      <h2>함께하는 교육과정</h2>
+      <!-- cards -->
+      <div class="cardWrap">
+        <script>
+          var vData = [
+            {
+              imgUrl: "cardImg01_01.png",
+              title: "찾아가는 학교교육1",
+              stitle: "아동청소년대상",
+            },
+            {
+              imgUrl: "cardImg01_02.png",
+              title: "찾아가는 학교교육2",
+              stitle: "아동청소년대상",
+            },
+            {
+              imgUrl: "cardImg01_03.png",
+              title: "찾아가는 학교교육3",
+              stitle: "아동청소년대상",
+            },
+            {
+              imgUrl: "cardImg01_01.png",
+              title: "찾아가는 학교교육1",
+              stitle: "아동청소년대상",
+            },
+            {
+              imgUrl: "cardImg01_02.png",
+              title: "찾아가는 학교교육2",
+              stitle: "아동청소년대상",
+            },
+            {
+              imgUrl: "cardImg01_03.png",
+              title: "찾아가는 학교교육3",
+              stitle: "아동청소년대상",
+            },
+          ];
+
+          for (var i = 0; i < vData.length; i++) {
+            document.write("<div class='card'>");
+            document.write("  <img src='img/" + vData[i].imgUrl + "' />");
+            document.write("    <div class='card-body'>");
+            document.write("        <h3>" + vData[i].title + "</h3>");
+            document.write("        <p>" + vData[i].stitle + "</p>");
+            document.write("    </div>");
+            document.write("</div>");
+          }
+        </script>
+      </div>
+    </div>
+  </body>
+</html>

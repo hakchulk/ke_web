@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .diceWrap {
+        width: 100px;
+        height: 100px;
+        background: pink;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid red;
+      }
+
+      .circle {
+        width: 15px;
+        height: 15px;
+        background: red;
+        border-radius: 8px;
+        position: absolute;
+      }
+      .circle.trans21 {
+        transform: translate(20px, 20px);
+      }
+      .circle.trans22 {
+        transform: translate(-20px, -20px);
+      }
+
+      .diceWrap2 {
+        transform: translate(100px, 0px);
+      }
+      .diceWrap3 {
+        transform: translate(0px, 100px);
+      }
+      .diceWrap4 {
+        transform: translate(0px, -100px);
+      }
+      .circle.trans41 {
+        transform: translate(20px, -20px);
+      }
+      .circle.trans42 {
+        transform: translate(-20px, 20px);
+      }
+      .diceWrap5 {
+        transform: translate(-100px, 0px);
+      }
+      .diceWrap6 {
+        transform: translate(0px, -200px);
+      }
+      .circle.trans61 {
+        transform: translate(0px, -20px);
+      }
+      .circle.trans62 {
+        transform: translate(0px, 20px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="diceWrap">
+      <div class="circle"></div>
+    </div>
+    <div class="diceWrap diceWrap2">
+      <div class="circle trans21"></div>
+      <div class="circle trans22"></div>
+    </div>
+    <div class="diceWrap diceWrap3">
+      <div class="circle"></div>
+      <div class="circle trans21"></div>
+      <div class="circle trans22"></div>
+    </div>
+    <div class="diceWrap diceWrap4">
+      <div class="circle trans21"></div>
+      <div class="circle trans22"></div>
+      <div class="circle trans41"></div>
+      <div class="circle trans42"></div>
+    </div>
+    <div class="diceWrap diceWrap4">
+      <div class="circle trans21"></div>
+      <div class="circle trans22"></div>
+      <div class="circle trans41"></div>
+      <div class="circle trans42"></div>
+    </div>
+    <div class="diceWrap diceWrap5">
+      <div class="circle trans21"></div>
+      <div class="circle trans22"></div>
+      <div class="circle trans41"></div>
+      <div class="circle trans42"></div>
+      <div class="circle"></div>
+    </div>
+    <div class="diceWrap diceWrap6">
+      <div class="circle trans21"></div>
+      <div class="circle trans22"></div>
+      <div class="circle trans41"></div>
+      <div class="circle trans42"></div>
+      <div class="circle trans61"></div>
+      <div class="circle trans62"></div>
+    </div>
+  </body>
+</html>

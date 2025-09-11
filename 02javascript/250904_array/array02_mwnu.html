@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      ul,
+      li {
+        list-style: none;
+      }
+      .menuWrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>로고</h1>
+    <div class="menuWrap">
+      <ul id="menu">
+        메인메뉴
+      </ul>
+    </div>
+    <script>
+      var mainMenu = ["home", "compay", "prduct", "online", "community"];
+      var menuLink = [
+        "www.naver.com",
+        "daum.net",
+        "www.korea.com",
+        "www.dbcut.com",
+      ];
+      var menuHtml = "";
+      // for (var i = 0; i < mainMenu.length; i++) {
+      //   menuHtml += "<li>";
+      //   menuHtml +=
+      //     "<a href = 'https://" + menuLink[i] + "'>" + mainMenu[i] + "</a>";
+      //   menuHtml += "</li>";
+      // }
+      for (var i = 0; i < mainMenu.length; i++) {
+        menuHtml += `
+            <li><a href="http://${menuLink[i]}">${mainMenu[i]}</a></li>          
+          `;
+      }
+      document.getElementById("menu").innerHTML = menuHtml;
+    </script>
+  </body>
+</html>

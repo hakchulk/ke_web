@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>지역: <span class="city">도시이름</span></div>
+    <div>지역: <span class="city">도시이름</span></div>
+    <script>
+      var cityData = ["서울", "대구", "부산"];
+      var cityNum = [1, 2, 3];
+      //   var cityElem = document.getElementsByClassName("city")[0];
+      var cityElem = document.querySelector("span.city");
+      var cityName = "";
+
+      function cityList(value, index) {
+        cityName += value;
+        // console.log(this);
+      }
+
+      cityData.forEach(cityList);
+      console.log(cityName);
+      cityElem.innerHTML = cityName;
+    </script>
+  </body>
+</html>

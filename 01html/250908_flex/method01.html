@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* span {
+        display: block;
+      } */
+    </style>
+  </head>
+  <body>
+    <div>
+      <span id="cityname" class="city1">도시명1</span>
+      <span id="cityname1" class="city">도시명2</span>
+      <span id="cityname2" class="city1">도시명3</span>
+      <span id="cityname3" class="city">도시명4</span>
+      <span id="cityname4" class="city1">도시명5</span>
+      <span id="cityname5" class="city">도시명6</span>
+    </div>
+    <button onclick="cityList()">클릭</button>
+    <button onclick="resetList()">원상태로</button>
+    <script>
+      // 변수 = 배열.join()
+      //
+      var city = ["서울", "부산", "대전"];
+      var joindata1 = city.join("/");
+
+      //document.getElementById("cityname").innerText = joindata1;
+      //   document.getElementsByTagName("span")[0].innerText = joindata1;
+      //   document.getElementsByClassName("city1")[1].innerText = joindata1;
+
+      function cityList() {
+        var city1Elem = document.getElementsByClassName("city1");
+        for (var i = 0; i < city1Elem.length; i++) {
+          city1Elem[i].innerText = joindata1;
+          city1Elem[i].style.background = "pink";
+          city1Elem[i].style.display = "block";
+        }
+      }
+
+      function resetList() {
+        var city1Elem = document.getElementsByClassName("city1");
+        for (var i = 0; i < city1Elem.length; i++) {
+          city1Elem[i].innerText = "도시명" + (2 * i + 1);
+          city1Elem[i].style.background = "initial";
+          city1Elem[i].style.display = "initial";
+        }
+      }
+    </script>
+  </body>
+</html>

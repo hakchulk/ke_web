@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <style>
+      .container {
+        width: 1200px;
+        margin: 0 auto;
+        margin-bottom: 20px;
+      }
+
+      .cardWrap {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      /* .color1 {
+        background: skyblue;
+      } */
+      .color2 {
+        background: pink;
+      }
+      .color3 {
+        background: burlywood;
+      }
+
+      .card {
+        width: 370px;
+        background: white;
+        cursor: pointer;
+      }
+      /* .card:hover {
+        transform: translate(-10px, -10px);
+        box-shadow: 15px 15px 30px rgb(0, 0, 0, 0.5);
+      } */
+
+      .card:hover img {
+        transform: translate(-10px, -10px);
+        box-shadow: 10px 10px 20px rgb(0, 0, 0, 0.3);
+      }
+      .card img {
+        width: 100%;
+        transition: 0.3s;
+      }
+
+      .card .cardBody {
+        padding: 16px;
+      }
+
+      .container h2 {
+        text-align: center;
+        padding: 16px; /*사방*/
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container color1">
+      <h2>함께하는 교육과정</h2>
+      <div class="cardWrap">
+        <div class="card">
+          <img src="img/cardImg01_01.png" alt="" />
+          <div class="cardBody">
+            <h3>Lorem, ipsum dolor.</h3>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="img/cardImg01_02.png" alt="" />
+          <div class="cardBody">
+            <h3>Lorem, ipsum dolor.</h3>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="img/cardImg01_03.png" alt="" />
+          <div class="cardBody">
+            <h3>Lorem, ipsum dolor.</h3>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <style>
+      .box {
+        width: 100px;
+        text-align: center;
+        padding: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+        position: relative;
+        left: 0;
+      }
+      .box:hover {
+        background: blue;
+        color: white;
+        left: 10px;
+        width: 110px;
+      }
+    </style>
+    <div class="box color2">button</div>
+  </body>
+</html>

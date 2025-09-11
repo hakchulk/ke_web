@@ -1,0 +1,68 @@
+hr {
+  height: 10px;
+  border: 0 none;
+}
+.boxWrap {
+  width: 400px;
+  background: skyblue;
+  display: flex;
+  /* justify-content: space-between; */
+  gap: 10px;
+}
+
+.boxWrap div {
+  background: pink;
+  flex-grow: 1;
+  /* width: 100px; */
+}
+
+.boxWrap1 {
+  width: 100px;
+  background: skyblue;
+  display: flex;
+  gap: 2px;
+}
+.boxWrap1 div {
+  background: pink;
+  flex-grow: 1;
+  border: 1px solid black;
+}
+
+.boxWrap2 {
+  background: skyblue;
+  display: flex;
+  width: 300px;
+
+  /* gap : 안쪽여백 */
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.boxWrap2 div {
+  background: pink;
+  /* flex-grow: 1; */
+  width: calc((100% - 30px) / 4);
+  /* width: 60px; */
+}
+
+.boxWrap3 {
+  background: skyblue;
+  display: flex;
+  width: 300px;
+  gap: 10px;
+}
+
+.boxWrap3 div {
+  background: pink;
+  flex-grow: 1;
+  transition: 0.3s;
+}
+
+/* .boxWrap3 .box2 {
+  flex-grow: 2;
+} */
+
+.boxWrap3 div:hover {
+  background: blue;
+  flex-grow: 1.5;
+}

@@ -1,0 +1,125 @@
+body {
+  background: skyblue;
+}
+
+.container {
+  width: 1320px;
+  margin: 0 auto;
+}
+
+/* header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header .menu {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header .menu a {
+  /* 1 display: block, padding  */
+
+  /* 2 display: block; */
+  /* width: 100px;
+  height: 30px;
+  display: block;
+  text-align: center;
+  line-height: 30px;
+  */
+
+  /* 3 display: flex;  */
+  height: 30px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header .menu a:hover {
+  background: pink;
+}
+
+.header .toggle {
+  display: none;
+  width: 35px;
+  height: 35px;
+  background: white;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.toggle div {
+  width: 23px;
+  height: 3px;
+  background: #000;
+  border-radius: 2px;
+  position: absolute;
+}
+
+.toggle .bar1 {
+  transform: translateY(-8px);
+}
+.toggle .bar3 {
+  transform: translateY(8px);
+}
+/* visual */
+/* common */
+
+.bg-color1 {
+  background: rgb(51, 132, 164);
+}
+
+.bg-color2 {
+  background: rgb(143, 144, 145);
+}
+/** css responsive  **/
+@media (max-width: 1399px) {
+  body {
+    background: pink;
+  }
+
+  .container {
+    width: 1140px;
+    background: rgb(193, 84, 102);
+  }
+}
+
+@media (max-width: 1199px) {
+  body {
+    background: red;
+  }
+}
+
+@media (max-width: 991px) {
+}
+
+/* 타블렛 */
+@media (max-width: 767px) {
+  .container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 575px) {
+  body {
+    background: green;
+  }
+
+  .container {
+    /* width: 100%; 위 767px에서 상속*/
+    background: gray;
+  }
+
+  .header .menu {
+    display: none;
+  }
+
+  .header .toggle {
+    display: flex;
+  }
+}

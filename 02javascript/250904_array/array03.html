@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var aData = [];
+      function insetArr() {
+        for (var i = 0; i < 100; i++) {
+          aData[i] = i + 1;
+        }
+        selectArr();
+      }
+
+      function selectArr() {
+        for (var i = 0; i < aData.length; i++) {
+          document.write(aData[i] + " ");
+        }
+      }
+    </script>
+    <button onclick="insetArr()">button</button>
+  </body>
+</html>

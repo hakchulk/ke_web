@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <style>
+      .card {
+        width: 390px;
+        /* background-color: pink; */
+      }
+      .card img {
+        width: 100%;
+        border-radius: 10px;
+      }
+      .card .card-body {
+        padding: 16px;
+      }
+      .contWrap {
+        width: 1200px;
+        /* background: pink; */
+        display: flex;
+        justify-content: space-between;
+        margin: auto;
+        flex-wrap: wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="contWrap" id="container ">
+      <script>
+        var vData = [
+          {
+            imgUrl: "cardImg01_01.png",
+            title: "찾아가는 학교교육1",
+            stitle: "아동청소년대상",
+          },
+          {
+            imgUrl: "cardImg01_02.png",
+            title: "찾아가는 학교교육2",
+            stitle: "아동청소년대상",
+          },
+          {
+            imgUrl: "cardImg01_03.png",
+            title: "찾아가는 학교교육3",
+            stitle: "아동청소년대상",
+          },
+          {
+            imgUrl: "cardImg01_01.png",
+            title: "찾아가는 학교교육1",
+            stitle: "아동청소년대상",
+          },
+          {
+            imgUrl: "cardImg01_02.png",
+            title: "찾아가는 학교교육2",
+            stitle: "아동청소년대상",
+          },
+          {
+            imgUrl: "cardImg01_03.png",
+            title: "찾아가는 학교교육3",
+            stitle: "아동청소년대상",
+          },
+        ];
+
+        // var sum = 0;
+        // for (var i = 0; i < 11; i++) {
+        //   sum += i;
+        // }
+        // document.write(sum);
+        // var str = "";
+        // for (var i = 0; i < 10; i++) {
+        //   str += i;
+        // }
+        // document.write(str);
+
+        var htmlString = "";
+        for (var i = 0; i < vData.length; i++) {
+          htmlString += "<div class='card'>";
+          htmlString += "<img src='img/cardImg01_01.png' />";
+          htmlString += "<div class='card-body'>";
+          htmlString += "<h3>Lorem, ipsum dolor.</h3>";
+          htmlString += "</div>";
+          htmlString += "</div>";
+        }
+        document.getElementById("container").innerHTML = htmlString;
+      </script>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <style>
+      .visual {
+        height: 100vh;
+        background: pink;
+        /* position: relative; 없어도 됨 */
+      }
+      .visual .swiper {
+        width: 100%;
+        height: 100%;
+        background: skyblue;
+      }
+
+      .visual .swiper .slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      .visual .swiper .slide.bgimg1 {
+        background-image: url(img/img01_01.jpg);
+      }
+      .visual .swiper .slide.bgimg2 {
+        background-image: url(img/img01_02.jpg);
+      }
+
+      .visual .swiper .textWrap {
+        width: 1280px;
+        color: white;
+      }
+      .visual .swiper .textWrap .sub {
+        margin-bottom: 20px;
+      }
+      .visual .swiper .textWrap .btnWrap {
+        width: 450px;
+        text-align: right;
+      }
+      .visual .btnWrap {
+        position: absolute;
+        right: 100px;
+        bottom: 100px;
+        z-index: 999;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- html -->
+    <div class="visual">
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <!-- slide 1 -->
+          <div class="swiper-slide slide bgimg1">
+            <div class="textWrap">
+              <h3 class="tit">게임소통학교1</h3>
+              <h2 class="sub">Lorem, ipsum dolor.</h2>
+            </div>
+          </div>
+          <!-- slide 2 -->
+          <div class="swiper-slide slide bgimg2">
+            <div class="textWrap">
+              <h3 class="tit">게임소통학교2</h3>
+              <h2 class="sub">Lorem, ipsum dolor.</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btnWrap">
+        <span class="viewFra">번호</span>
+        <button class="preBtn">이전</button>
+        <button class="nextBtn">다음</button>
+      </div>
+    </div>
+
+    <div style="height: 500px"></div>
+    <!-- script -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        loop: true,
+        navigation: {
+          nextEl: ".nextBtn",
+          prevEl: ".preBtn",
+        },
+        pagination: {
+          el: ".viewFra",
+          type: "fraction",
+        },
+      });
+    </script>
+  </body>
+</html>
