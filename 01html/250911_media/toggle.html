@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: grey;
+      }
+      .toggle {
+        width: 35px;
+        height: 35px;
+        background: skyblue;
+        border: 1px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* flex-direction: column;
+        gap: 4px; */
+        position: relative;
+      }
+      .toggle div {
+        width: 23px;
+        height: 4px;
+        position: absolute;
+        background: #000;
+        border-radius: 2px;
+        transition: 0.3s;
+      }
+
+      .toggle .bar1 {
+        transform: translateY(0);
+        transform: translateY(-8px);
+      }
+      .toggle .bar3 {
+        transform: translateY(8px);
+      }
+
+      .toggle.active .bar1 {
+        transform: translateY(0) rotate(45deg);
+      }
+
+      /* translateY(0) 없어도 작동 */
+      .toggle.active .bar3 {
+        transform: rotate(-45deg);
+      }
+      .toggle.active .bar2 {
+        /* display: none; */
+        opacity: 0;
+      }
+
+      /*  * < tag < class < id < linke style(javascript) < !important */
+    </style>
+  </head>
+  <body>
+    <!-- 3줄 메뉴 <-> X toggle -->
+    <div class="toggle" onclick="btnClick()" id="han">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+    </div>
+    <div class="toggle active">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+    </div>
+
+    <script>
+      function btnClick() {
+        document.getElementsByClassName("toggle")[0].classList.toggle("active");
+        // const o = document.getElementById("han");
+        // const lst = o.classList;
+        // if (lst.value == "toggle") {
+        //   lst.add("active");
+        //   o.style.background = "pink";
+        //   // document.getElementsByClassName("bar1")[0].style.background = "red";
+        //   document.querySelector(".toggle div").style.background = "red";
+        // } else {
+        //   lst.remove("active");
+        //   o.style.background = "skyblue";
+        // }
+      }
+    </script>
+  </body>
+</html>

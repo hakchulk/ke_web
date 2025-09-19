@@ -1,21 +1,10 @@
-/* visual  */
-.container {
-  width: 1280px;
-  margin: 0 auto;
-  position: relative;
-}
-
 .visual {
   height: 400px;
   background-image: url(../img/visual02.png);
+  background-position: center;
   background-size: cover;
-  background-repeat: no-repeat;
-  /* background-position: center; */
-  color: white;
 }
-
 .visual h3 {
-  /* viewport에 따라 조정 */
   /* font-size: 6vw; */
   font-size: 40px;
   font-weight: bold;
@@ -25,8 +14,6 @@
   background-image: url(../img/visual02.png);
   background-position: center;
   background-size: cover;
-
-  /* background-attachment 모바일 X  */
   background-attachment: fixed;
 }
 
@@ -36,6 +23,7 @@
   padding: 0;
   list-style: none;
 }
+
 /** css responsive  **/
 @media (max-width: 1399px) {
 }
@@ -44,12 +32,8 @@
 }
 
 @media (max-width: 991px) {
-  .visual p {
-    display: initial;
-  }
 }
 
-/* 타블렛 */
 @media (max-width: 767px) {
 }
 
@@ -57,12 +41,7 @@
   .visual {
     height: initial;
   }
-
   .visual h3 {
     font-size: 20px;
-    font-weight: bold;
-  }
-  .visual p {
-    display: none;
   }
 }

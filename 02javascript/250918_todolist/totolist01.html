@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="inp" placeholder="오늘의 할일 입력" />
+    <button id="btnInp">입력</button>
+    <ul class="todoView">
+      <li>
+        오늘의 할일 <button class="btnDel" onclick="delItem(this)">삭제</button>
+      </li>
+    </ul>
+    <button id="delAll">전체삭제</button>
+    <script>
+      const btnInp = document.getElementById("btnInp");
+      const txtInp = document.getElementById("inp");
+      const btnDelAll = document.getElementById("delAll");
+      const todoView = document.querySelector(".todoView");
+      const listData = [];
+
+      btnInp.addEventListener("click", function () {
+        const val = txtInp.value;
+        console.log(val);
+        if (val.length === 0) {
+          alert("할일을 입력하세요");
+          return;
+        }
+
+        const elm = document.createElement("li");
+        elm.innerHTML = `${val} <button class="btnDel" onclick="delItem(this)">삭제</button>`;
+        todoView.appendChild(elm);
+        listData.push(val);
+        // console.log(listData);
+        viewList();
+      });
+
+      btnDelAll.addEventListener("click", function () {
+        todoView.innerHTML = "";
+        listData.length = 0; // listData = [];
+      });
+
+      function delItem(btn) {
+        if (btn.parentNode) {
+          btn.parentNode.remove();
+          viewList();
+        }
+      }
+
+      function viewList() {
+        const lst = document.querySelectorAll(".todoView li");
+        lst.forEach(function (li) {
+          //console.log(Object.prototype.toString.call(li.firstChild));
+          console.log(li.firstChild.textContent.trim());
+        });
+      }
+    </script>
+  </body>
+</html>

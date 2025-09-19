@@ -1,0 +1,26 @@
+/* init  */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* padding과 boder때문에 전체 크기가 커지는 것을 방지 */
+}
+
+html,
+body {
+  height: 100%;
+}
+
+a:link,
+a:visited {
+  text-decoration: none;
+  color: black;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+img {
+  display: block;
+}

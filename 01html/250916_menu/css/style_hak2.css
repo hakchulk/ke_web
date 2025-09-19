@@ -1,0 +1,54 @@
+.container {
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.navbar {
+  background-color: lightblue;
+  /* position: relative;
+  z-index: 9999; */
+}
+
+.navbar h1 {
+  text-align: center;
+}
+
+.navbar .menu {
+  display: flex;
+}
+
+.navbar .sub {
+  display: none;
+
+  /* position: absolute; 일 때 부모:가장 가까운 position: relative, absolute, fixed, sticky가 설정된 조상 요소
+     그래서 li 에 position: relative; 를 설정해줘야 함
+  */
+  position: absolute;
+  width: 100%;
+}
+
+.navbar .menu > li {
+  flex: 1 1 20%;
+  /* 중요 */
+  position: relative;
+}
+
+.navbar .menu li a {
+  /* 부모 요소의 너비를 꽉 채움 */
+  display: block;
+
+  text-align: center;
+  padding: 5px 0;
+  background-color: lightgrey;
+}
+
+/* .navbar .menu > li:hover > a 와 동일 */
+.navbar .menu > li a:hover {
+  background-color: grey;
+  color: white;
+}
+
+/* a:hover 하면 안된다. .sub는 a의 자식이 아니라 li의 자식이다. */
+.navbar .menu > li:hover .sub {
+  display: block;
+}

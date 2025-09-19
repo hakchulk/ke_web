@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // var 재정의 가능
+      // let 재정의 불가
+      // const 상수
+      //   let arr = [0, 1];
+      //   arr.forEach((item, idx, a) => {
+      //     item++; // 값이 반환되기 때문에 배열의 내용은 번하지 않는다.
+      //   });
+      //   console.log(arr);
+      //   arr.forEach((item, idx, a) => {
+      //     a[idx]++;
+      //   });
+      //   console.log(arr);
+
+      let car1 = {
+        name: "sonata",
+        speed: 50,
+        constructor(name, speed) {
+          this.name = name;
+          this.speed = speed;
+        },
+      };
+
+      console.log(car1.name);
+
+      let name = "hak";
+      class Car {
+        name = "sonata";
+        speed = 0;
+        constructor(name, speed) {
+          this.name = name;
+          this.speed = speed;
+        }
+
+        start = function () {
+          // method에서 this를 반드시 사용해야 하다.
+          console.log(`name은 ${name} 이고, 나의 차는 ${this.name} 입니다.`);
+        };
+      }
+      let car = new Car();
+      console.log(`나의 차는${car.name} 입니다.`);
+      car = new Car("프라이드", 100);
+      car.start();
+
+      class Car1 extends Car {}
+    </script>
+  </body>
+</html>

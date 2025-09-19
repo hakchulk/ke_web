@@ -12,9 +12,11 @@
     />
 
     <style>
+      /* visual  */
       .visual {
         height: 100vh;
-        background: pink;
+        /* min-height: 700px; */
+        /* background-color: pink; */
         position: relative;
       }
       .visual .swiper {
@@ -22,11 +24,16 @@
         height: 100%;
         background: skyblue;
       }
+      .visual .swiper .swiper-wrapper {
+        background: blue;
+      }
 
+      /* visual img */
       .visual .swiper .slide {
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
+        /* background-image: url(img/img01_01.jpg); */
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -45,12 +52,8 @@
       .visual .swiper .textWrap .sub {
         margin-bottom: 20px;
       }
-      .visual .swiper .textWrap .btnWrap {
-        width: 450px;
-        text-align: right;
-      }
       .visual .btnWrap {
-        /* position: absolute; */
+        position: absolute;
         right: 100px;
         bottom: 100px;
         z-index: 999;
@@ -59,47 +62,71 @@
   </head>
   <body>
     <!-- html -->
+
     <div class="visual">
       <div class="swiper mySwiper">
         <div class="swiper-wrapper">
           <!-- slide 1 -->
           <div class="swiper-slide slide bgimg1">
             <div class="textWrap">
-              <h3 class="tit">게임소통학교1</h3>
-              <h2 class="sub">Lorem, ipsum dolor.</h2>
+              <h2 class="title">게임소통학교1</h2>
+              <h2 class="sub">Lorem ipsum dolor sit amet.</h2>
             </div>
           </div>
+
           <!-- slide 2 -->
           <div class="swiper-slide slide bgimg2">
             <div class="textWrap">
-              <h3 class="tit">게임소통학교2</h3>
-              <h2 class="sub">Lorem, ipsum dolor.</h2>
+              <h2 class="title">게임소통학교2</h2>
+              <h2 class="sub">Lorem ipsum dolor sit amet.</h2>
             </div>
           </div>
+
+          <!-- slide 3 -->
+          <div class="swiper-slide slide bgimg1">
+            <div class="textWrap">
+              <h2 class="title">게임소통학교1</h2>
+              <h2 class="sub">Lorem ipsum dolor sit amet.</h2>
+            </div>
+          </div>
+
+          <!-- slide 4 -->
+          <div class="swiper-slide slide bgimg2">
+            <div class="textWrap">
+              <h2 class="title">게임소통학교2</h2>
+              <h2 class="sub">Lorem ipsum dolor sit amet.</h2>
+            </div>
+          </div>
+          <!-- <div class="swiper-slide slide bgimg2">1</div> -->
         </div>
       </div>
+
+      <!-- position -->
       <div class="btnWrap">
         <span class="viewFra">번호</span>
-        <button class="preBtn">이전</button>
-        <button class="nextBtn">다음</button>
+        <button class="prevBtn">prev</button>
+        <button class="nextBtn">next</button>
       </div>
     </div>
 
     <div style="height: 500px"></div>
+
     <!-- script -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-      var swiper = new Swiper(".mySwiper", {
+      new Swiper(".mySwiper", {
         loop: true,
         navigation: {
           nextEl: ".nextBtn",
-          prevEl: ".preBtn",
+          prevEl: ".prevBtn",
         },
         pagination: {
           el: ".viewFra",
           type: "fraction",
         },
       });
+
+      new Swiper(".newBoard", {});
     </script>
   </body>
 </html>

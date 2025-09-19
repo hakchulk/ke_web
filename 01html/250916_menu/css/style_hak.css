@@ -1,0 +1,56 @@
+.container {
+  width: 1000px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.navbar {
+  background: green;
+  position: relative;
+  z-index: 9999;
+}
+
+.menu .sub {
+  display: none;
+  width: 100%;
+  position: absolute;
+}
+
+h1 {
+  text-align: center;
+}
+
+.navbar .menu {
+  display: flex;
+}
+
+.navbar .menu > li {
+  position: relative;
+  /* 메뉴를 옆으로 펼친다. */
+  flex: 1 1 20%;
+}
+
+.navbar .menu > li a {
+  /* 한 줄 전체를 차지하며 줄바꿈이 자동으로 발생 */
+  display: block;
+  background: pink;
+  text-align: center;
+  padding: 5px 0;
+}
+
+.navbar .menu > li a:hover {
+  background: #242323;
+  color: white;
+}
+
+.navbar .menu > li:hover .sub {
+  display: block;
+}
+
+.visual {
+  height: 400px;
+  background-image: url(../img/visual01.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

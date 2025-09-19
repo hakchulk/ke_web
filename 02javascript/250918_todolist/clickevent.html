@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="view">
+      <span>자료넣기</span>
+      <!-- <button onclick="insertData()">입력하세요</button> -->
+      <button class="btn">입력하기</button>
+
+      <script>
+        const btn = document.querySelector(".btn");
+        btn.addEventListener("click", insertData);
+        function insertData() {
+          document.querySelector("div.view span").innerHTML = "hello";
+        }
+      </script>
+
+      <!-- <h1>To Do List</h1>
+      <input type="text" id="itemInput" placeholder="Add a new item" />
+      <button id="addItemButton">Add</button>
+      <ul id="todoList"></ul>
+
+      <script>
+        document
+          .getElementById("addItemButton")
+          .addEventListener("click", function () {
+            const itemInput = document.getElementById("itemInput");
+            const itemText = itemInput.value.trim();
+            if (itemText !== "") {
+              const li = document.createElement("li");
+              li.textContent = itemText;
+              document.getElementById("todoList").appendChild(li);
+              itemInput.value = "";
+            }
+          });
+      </> -->
+    </div>
+  </body>
+</html>

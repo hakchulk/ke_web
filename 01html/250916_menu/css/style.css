@@ -1,0 +1,76 @@
+.container {
+  width: 1000px;
+  margin: 0 auto;
+  position: relative;
+}
+
+h1 {
+  text-align: center;
+}
+
+.navbar {
+  background: #858484;
+}
+.navbar .menu {
+  display: flex;
+  /* background: skyblue; */
+}
+
+.navbar .menu > li {
+  /* grow : 자라나는 만큼, shrink : 줄어드는 만큼 , basis*/
+  flex: 1 1 20%;
+  /* flex-grow: 1; */
+}
+/* 
+.navbar .menu > li:hover {
+  flex-grow: 1.2;
+} */
+
+.navbar .menu > li a {
+  display: block;
+  /* background: pink; */
+  text-align: center;
+  padding: 10px 0;
+}
+
+.navbar .menu > li a:hover {
+  background: rgb(34, 34, 34);
+  color: white;
+}
+
+.navbar .menu > li:hover {
+  background: rgb(77, 76, 76);
+}
+
+.navbar .menu > li:hover a {
+  background: rgb(77, 76, 76);
+}
+
+/* .navbar .menu > li:hover a {
+  background: white;
+} */
+
+.navbar .menu li .sub {
+  display: none;
+  position: absolute;
+  /* background: green; */
+  width: 100%;
+}
+
+.navbar .menu > li {
+  position: relative;
+}
+
+/* 디자인 하기 위하여 1개만  */
+/* .navbar .menu li:nth-child(1) .sub {
+  display: block;
+} */
+
+.navbar .menu li:hover .sub {
+  display: block;
+}
+
+.visual {
+  height: 400px;
+  background: skyblue;
+}
