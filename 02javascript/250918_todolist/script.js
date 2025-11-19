@@ -1,10 +1,17 @@
-let listView = [
-  { todo: "자바11111111111111111111111111111", complete: false },
-  { todo: "자바 스크립트", complete: true },
-  { todo: "오늘 할일", complete: false },
-];
+// let listView = [
+//     { todo: "자바", complete: false },
+//     { todo: "자바 스크립트", complete: true },
+//     { todo: "오늘 할일", complete: false },
+// ];
 
-let _curIdx = -1;
+function init() {
+  listView = JSON.parse(localStorage.getItem("todoData"));
+  viewList();
+}
+
+function saveData() {
+  localStorage.setItem("todoData", JSON.stringify(listView));
+}
 
 function getInnerText(item, idx) {
   let s = `<li class="d-flex py-2">
@@ -24,11 +31,11 @@ function getInnerText(item, idx) {
 }
 
 function modiItem(idx) {
-  _curIdx = idx;
-  txtInp.value = listView[idx].todo;
+  txtInp.value = listView[idx].value;
 
   txtInp.focus();
-  btnInp.innerText = "수정";
+  btnInp.classList.toggle("d-none");
+  btnModi.classList.toggle("d-none");
 }
 
 function viewList() {
@@ -38,21 +45,23 @@ function viewList() {
   }
   const lst = document.querySelector(".todoView");
   lst.innerHTML = s;
+
+  if (btnInp.classList.contains("d-none")) btnInp.classList.toggle("d-none");
+
+  if (btnModi.classList.contains("d-none") == false)
+    btnModi.classList.toggle("d-none");
+
+  txtInp.value = "";
 }
 
 function done(idx) {
   listView[idx].complete = !listView[idx].complete;
+  saveData();
   viewList();
 }
 
 function delItem(idx) {
   listView.splice(idx, 1);
+  saveData();
   viewList();
 }
-// function viewList() {
-//   const lst = document.querySelectorAll(".todoView li");
-//   lst.forEach(function (li) {
-//     //console.log(Object.prototype.toString.call(li.firstChild));
-//     console.log(li.firstChild.textContent.trim());
-//   });
-// }

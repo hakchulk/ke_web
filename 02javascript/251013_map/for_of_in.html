@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // for in 객체의 key를 순환
+
+      const user = {
+        name: "hak",
+        age: 30,
+        job: "developer",
+      };
+
+      for (const key in user) {
+        console.log(key, user[key]);
+      }
+
+      //   for (const item of user) { // Uncaught TypeError: user is not iterable
+      //     console.log(item);
+      //   }
+
+      const loc = ["서울", "부산", "대구"];
+
+      for (const index in loc) {
+        console.log(index);
+      }
+
+      for (const item of loc) {
+        console.log(item);
+      }
+    </script>
+  </body>
+</html>

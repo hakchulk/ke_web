@@ -1,0 +1,21 @@
+ul,
+li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a:link,
+a:visited {
+  text-decoration: none;
+}
+
+.menu li a.active {
+  background: pink;
+  font-weight: bold;
+  color: blue;
+}
+
+.submenu .active {
+  font-weight: bold;
+}

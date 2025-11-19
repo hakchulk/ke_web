@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //   function greet(name, callback) {
+      //     console.log("안녕하세요, " + name + "님!");
+      //     callback();
+      //   }
+
+      //   greet("홍길동", function () {
+      //     console.log("환영합니다!");
+      //   });
+
+      //   setTimeout(() => {
+      //     console.log("1. 2초후 실행됨.");
+      //   }, 2000);
+
+      //   console.log("2. 바로실행.");
+
+      function getUser(id, callback) {
+        setTimeout(() => {
+          callback(id);
+        }, 1000);
+      }
+
+      getUser(1, function (userID) {
+        console.log("ID:" + userID);
+      });
+    </script>
+  </body>
+</html>

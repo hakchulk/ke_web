@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // Destructuring
+      const arr = [1, 2, 3];
+      const [a, b] = arr;
+      console.log(a, b);
+
+      function greet({ name, age }) {
+        console.log(`안녕하세요 ${name}님, 나이: ${age}`);
+      }
+
+      function greetArr([name, age]) {
+        console.log(`안녕하세요 ${name}님, 나이: ${age}`);
+      }
+
+      const pers = { age: 25, name: "Hak" };
+      console.log(pers["name"]);
+
+      greet(pers);
+      greetArr(["Hak", 25]);
+    </script>
+  </body>
+</html>

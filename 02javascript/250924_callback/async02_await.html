@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function fn1(num) {
+        let p = new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(`resolve() ${num} : 성공!`);
+          }, 1000);
+          // reject(`${num} : 실패!`); // 강제 실패는 Promise체인이 멈춤
+        });
+
+        return p;
+      }
+      async function test() {
+        console.log("시작");
+        try {
+          let time = await fn1(1000);
+          console.log(`time 변수: [${time}]`);
+          time = await fn1(2000);
+          console.log(`time 변수: [${time}]`);
+        } catch (error) {
+          console.log(`catch error 변수: [${error}]`);
+        }
+        console.log("끝");
+      }
+      test();
+    </script>
+  </body>
+</html>

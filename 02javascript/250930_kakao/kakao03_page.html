@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/axios.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <style>
+      ul,
+      li {
+        list-style: none;
+        padding: 0;
+      }
+      .wrap {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container py-3">
+      <h1 class="mb-3 text-center">카카오 검색</h1>
+
+      <div class="row">
+        <div class="offset-md-3 col-md-6">
+          <form id="searchform" class="d-flex gap-2 mb-3">
+            <input
+              type="text"
+              name="search"
+              class="form-control search"
+              placeholder="검색어를 입력하세요"
+            />
+            <button type="submit" class="btn btn-primary" style="width: 100px">
+              검색
+            </button>
+          </form>
+          <div id="results" class="list-group">
+            <ul>
+              <li>
+                <h4>
+                  <a href="#" class="nav-link wrap"
+                    >Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Dolores, perferendis!</a
+                  >
+                </h4>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Placeat aliquam culpa reiciendis amet architecto, iusto animi
+                  facilis beatae, expedita nihil maxime. Molestias ratione
+                  accusantium at! Commodi quia nulla cumque voluptas.
+                </p>
+                <p class="d-flex justify-content-end small">
+                  <span>2025-09-15</span>
+                </p>
+              </li>
+            </ul>
+          </div>
+          <nav class="bg-primary d-flex justify-content-center">
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" href="#">
+                  <span aria-hidden="true">«</span>
+                </a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true">»</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <script>
+      // document.getElementById("searchform").addEventListener("submit",function(){})
+      let page = 1;
+      let listCnt = 10;
+      let pageCnt = 5;
+      let totalRec = 0;
+      let totalPages = 0;
+      let query = "";
+
+      document
+        .getElementById("searchform")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          query = document.querySelector(".search").value.trim();
+          if (!query) {
+            alert("검색어를 입력하세요");
+          }
+          console.log(query);
+          searchdata(query);
+        });
+
+      async function searchdata(query) {
+        try {
+          // const res = await axios.get('url',{ headers:{},params:{}})
+          const { data } = await axios.get(
+            "https://dapi.kakao.com/v2/search/web",
+            {
+              headers: {
+                Authorization: "KakaoAK fa457cdf8aad5e817710e5043ba0ece7",
+              },
+              params: {
+                query: query,
+                page: page,
+                size: listCnt,
+              },
+            }
+          );
+
+          console.log(res);
+
+          data.documents.forEach(function (item) {
+            console.log(item.title);
+          });
+        } catch (error) {}
+      }
+      async function kakaosearch(query) {
+        try {
+          // const res = await axios.get('',{})
+          const res = await axios.get(
+            `https://dapi.kakao.com/v2/search/web?query=${query}&size=50`,
+            // `https://dapi.kakao.com/v2/search/web`,
+            {
+              headers: {
+                Authorization: "KakaoAK fa457cdf8aad5e817710e5043ba0ece7",
+              },
+              // params: {
+              //   query: query,
+              //   size: 50,
+              // },
+            }
+          );
+          console.log(res.data.documents);
+        } catch (error) {}
+      }
+      // kakaosearch('손흥민');
+    </script>
+  </body>
+</html>

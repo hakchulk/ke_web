@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let arr = [10, 20, 30];
+      let arr1 = arr; // 주소 복사
+      let arr2 = [...arr, 40, 50]; // 값 복사 + 추가
+      console.log(arr2);
+
+      function fetchData() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve("데이터 도착!");
+          }, 1000);
+        });
+      }
+
+      fetchData()
+        .then((data) => console.log(data))
+        .catch((err) => console.error(err));
+
+      async function getData() {
+        try {
+          const result = await fetchData();
+          console.log(result);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      getData();
+    </script>
+  </body>
+</html>

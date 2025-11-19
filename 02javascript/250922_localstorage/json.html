@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="name"></div>
+    <script>
+      /*
+            json : javascript object notation
+            - 자바스크립트 객체 표기법
+            - 자바스크립트 객체 표기법을 빌려와서 데이터를 표현하는 방식
+            - key : value 쌍으로 이루어짐
+            - key는 무조건 ""로 감싸야함
+            - value는 ""로 감싸도 되고 안 감싸도 됨
+            - value는 숫자, 문자, 배열, 객체, true, false, null 사용 가능
+            - 오로지 데이터 교환을 위해서만 사용됨
+            - 자바스크립트 객체와 유사하지만 엄밀히 따지면 다름
+            - json은 로컬스토리지에 데이터를 저장할 때 많이 사용됨
+            - json은 빅데이터에서 많이 사용됨
+            - json은 db에서 데이터를 주고 받을 때 많이 사용됨
+            
+            xml -> json
+            xml
+            <title>오늘의 할일</title>
+            <book>
+                <title>삼국지</title>
+                <author>나관중</author>
+                <date>2022-09-25</date>
+                <price>20000</price>
+            </book>
+
+            json
+            {
+                "title" : "오늘의 할일",
+                "book" : {
+                    "title" : "삼국지",
+                    "author" : "나관중"
+                },
+                "date" : "2022-09-25",
+                "price" : 20000
+            }
+            xml -> json -> yaml
+            yaml
+            title : 오늘의 할일
+            book :
+              title : 삼국지
+              author : 나관중
+            date : 2022-09-25
+            price : 20000
+        */
+      /*
+        localStorage
+        - 브라우저에 데이터를 저장하는 공간
+        - 도메인 당 5MB까지 저장 가능
+        - key : value 쌍으로 이루어짐
+        - key와 value는 무조건 문자열로 저장됨
+        - 브라우저를 닫아도 데이터가 사라지지 않음
+        - 브라우저에서 개발자 도구 -> application -> local storage에서 확인 가능
+        - localStorage.setItem(key, value) : 데이터 저장
+        - localStorage.getItem(key) : 데이터 가져오기
+        - localStorage.removeItem(key) : 데이터 삭제
+        - localStorage.clear() : 전체 데이터 삭제
+        - localStorage.key(index) : index에 해당하는 key 가져오기
+        - localStorage.length : 저장된 데이터 개수
+        - value는 무조건 문자열로 저장되기 때문에 객체나 배열을 저장할 때는 JSON.stringify()를 사용해서 문자열로 변환해야 함
+        - 문자열로 변환된 객체나 배열을 가져올 때는 JSON.parse()를 사용해서 다시 객체나 배열로 변환해야 함
+       */
+      const test = {
+        title: "오늘의 할일",
+        book: {
+          title: "삼국지",
+          author: "나관중",
+        },
+        date: "2022-09-25",
+        price: 20000,
+      };
+
+      const userInfo = { name: "홍길동", age: 20, hobby: "coding" };
+
+      localStorage.setItem("user", JSON.stringify(userInfo));
+      console.log(localStorage.getItem("user"));
+      console.log(localStorage.key(0));
+
+      let user = localStorage.getItem("user");
+      const parseData = JSON.parse(user);
+      document.querySelector(".name").innerText = parseData.name;
+    </script>
+  </body>
+</html>

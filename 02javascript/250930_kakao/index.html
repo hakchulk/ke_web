@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+      integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    /> -->
+
+    <script src="js/axios.min.js"></script>
+
+    <style>
+      .ellipsis {
+        white-space: nowrap; /* 줄바꿈 없이 한 줄로 유지 */
+        overflow: hidden; /* 넘치는 부분 숨김 */
+        text-overflow: ellipsis; /* 넘친 텍스트를 ...(ellipsis:생략 부호)으로 표시 */
+      }
+
+      ul,
+      li {
+        list-style: none;
+        padding: 0;
+      }
+
+      a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" style="max-width: 1200px">
+      <h4 class="py-2" style="text-align: center">다음 검색</h4>
+      <form
+        class="d-flex gap-2 py-2"
+        id="searchform"
+        onsubmit="SearchEvent(event);"
+      >
+        <input
+          id="searchtext"
+          type="text"
+          class="form-control"
+          placeholder="enter a keyword"
+          value="손흥민"
+        />
+        <button
+          class="btn btn-secondary"
+          style="width: 5rem"
+          onclick="SearchEvent(event);"
+        >
+          검색
+        </button>
+      </form>
+
+      <div class="row">
+        <ul id="searchResult" class="list-group"></ul>
+      </div>
+      <nav class="d-flex justify-content-center">
+        <ul class="pagination" id="pagination">
+          <!-- <li class="page-item">
+            <a class="page-link" href="#">
+              <span aria-hidden="true">«</span>
+            </a>
+          </li>
+
+          <li class="page-item active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">»</span>
+            </a>
+          </li> -->
+        </ul>
+      </nav>
+    </div>
+
+    <script>
+      const searchtextElm = document.getElementById("searchtext");
+      const resultElm = document.getElementById("searchResult");
+
+      let page = 1;
+      const listCnt = 5;
+      const pagerCnt = 10; // 페이저 그룹에 나타날 페이지 갯수
+      // let totalRec = 0;
+      // let totalPages = 0;
+
+      function getDateStr(dateStr) {
+        return dateStr.slice(0, 10) + " · " + dateStr.slice(11, 16);
+      }
+
+      function getSearchRow(item) {
+        return `<li class="list-group-item list-group-item-action mb-3 border-top rounded-2">
+                  <h5 class="fw-bold text-dark">
+                    <a href="${
+                      item.url
+                    }" target="_blank" class="nav-link ellipsis" title="${
+          item.title
+        }">${item.title}</a></h5>
+                  <div class="d-flex gap-3">
+                  <a href="${item.url}" target="_blank">
+                    <img src="${item.thumbnail}" class="rounded-2" /></a>
+                    <div>
+                    <p>
+                      <a href="${
+                        item.url
+                      }" target="_blank" class="nav-link text-dark">${
+          item.contents
+        }</a>
+                    </p>
+                    <p class="text-end small mb-0">
+                      ${getDateStr(item.datetime)}
+                    </p>
+                    </div>
+                  </div>
+            </li>`;
+        // Bootstrap은 <p> 태그에 기본적으로 아래쪽 마진을 설정.
+        // mb-0 추가하여 아래쪽 마진을 제거
+      }
+
+      const paginationElm = document.getElementById("pagination");
+      function pageNation(isEnd) {
+        //         // meta { is_end: false
+        //              pageable_count: 395
+        //              total_count: 2880290
+        //          }
+        const startPage = Math.floor((page - 1) / pagerCnt) * pagerCnt + 1;
+        const endPage = startPage + pagerCnt - 1;
+
+        let str = "";
+        for (let i = startPage; i <= endPage; i++) {
+          str += `<li class="page-item ${
+            i == page ? "active" : ""
+          }"><a class="page-link" href="#" onclick="SearchPage(${i})" >${i}</a></li>`;
+        }
+        paginationElm.innerHTML =
+          `
+          <li class="page-item ${page == 1 ? "disabled" : ""}">
+            <a class="page-link" href="#" onclick="SearchPage(${
+              startPage == 1 ? 1 : startPage - 1
+            })">
+              <span aria-hidden="true">«</span>
+            </a>
+          </li>        
+        ` +
+          str +
+          `
+          <li class="page-item ${isEnd ? "disabled" : ""}">
+            <a class="page-link" href="#" onclick="SearchPage(${endPage + 1})">
+              <span aria-hidden="true">»</span>
+            </a>
+          </li>        
+        `;
+      }
+
+      function SearchPage(pgNum) {
+        page = pgNum;
+        const txt = searchtextElm.value;
+        console.log(txt);
+
+        getkakaosearch(txt).then((dt) => {
+          const docs = dt.documents;
+          console.log(dt);
+          let str = "";
+          docs.forEach((item) => {
+            str += getSearchRow(item);
+          });
+          resultElm.innerHTML = str;
+          pageNation(dt.meta.is_end);
+        });
+      }
+
+      function SearchEvent(e) {
+        page = 1;
+        Search(e);
+        return false;
+      }
+
+      function Search(e) {
+        if (e) e.preventDefault(); // 기본 제출 동작 막기
+        SearchPage(page);
+      }
+
+      async function getkakaosearch(qr) {
+        try {
+          const res = await axios.get("https://dapi.kakao.com/v2/search/blog", {
+            headers: {
+              Authorization: "KakaoAK cafd059ab750c375164a71a01c72c9a2",
+            },
+            params: { query: qr, size: listCnt, page: page },
+          });
+
+          const dt = res.data;
+
+          return dt;
+        } catch (error) {}
+      }
+    </script>
+  </body>
+</html>

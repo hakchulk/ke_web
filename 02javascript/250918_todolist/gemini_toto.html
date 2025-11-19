@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>심플 ToDo 리스트</title>
+    <!-- Bootstrap 5.3 CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <style>
+      /* 커스텀 스타일: 완료된 항목 처리 */
+      .task-completed {
+        text-decoration: line-through;
+        color: #6c757d !important; /* 텍스트 색상을 회색으로 변경 */
+      }
+      /* 리스트 항목의 hover 효과를 약간 더 부드럽게 */
+      .list-group-item:hover {
+        background-color: #f8f9fa;
+      }
+      /* 체크박스 레이블의 폰트 크기 조정 */
+      .task-label {
+        font-size: 1.15rem; /* fs-5와 비슷하게 */
+        margin-left: 0.5rem;
+      }
+    </style>
+  </head>
+  <body class="bg-light">
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+          <!-- ToDo App Main Card -->
+          <div class="card shadow-lg border-0 rounded-4">
+            <div
+              class="card-header bg-primary text-white text-center py-3 rounded-top-4"
+            >
+              <h1 class="h3 mb-0">오늘의 할 일 📝</h1>
+            </div>
+            <div class="card-body p-4">
+              <!-- Task Input Form -->
+              <div class="input-group mb-4 shadow-sm">
+                <input
+                  type="text"
+                  id="newTaskInput"
+                  class="form-control form-control-lg border-primary"
+                  placeholder="새로운 할 일을 입력하세요"
+                  aria-label="New task input"
+                />
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  id="addTaskButton"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                    class="bi bi-plus-lg"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2z"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Task Filter/Controls -->
+              <div
+                class="d-flex justify-content-between mb-3 border-bottom pb-2"
+              >
+                <div
+                  class="btn-group"
+                  role="group"
+                  id="filterGroup"
+                  aria-label="Task filters"
+                >
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-primary active"
+                    data-filter="all"
+                  >
+                    전체
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-primary"
+                    data-filter="active"
+                  >
+                    할 일
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-primary"
+                    data-filter="completed"
+                  >
+                    완료
+                  </button>
+                </div>
+                <div class="d-flex gap-2">
+                  <!-- JS에서 상태에 따라 클래스와 텍스트를 변경합니다. -->
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    id="completeAllButton"
+                  >
+                    전체 완료
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-danger"
+                    id="deleteAllFilteredButton"
+                  >
+                    필터 목록 삭제
+                  </button>
+                </div>
+              </div>
+
+              <!-- ToDo List Container -->
+              <ul class="list-group list-group-flush" id="todoList">
+                <!-- Tasks will be dynamically inserted here -->
+              </ul>
+              <!-- End ToDo List -->
+            </div>
+            <div
+              class="card-footer text-center text-muted small py-3"
+              id="todoCount"
+            >
+              남은 할 일: 0개
+            </div>
+          </div>
+          <!-- End Main Card -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle CDN -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      // --- 1. 전역 변수 및 상태 관리 ---
+      const TODO_STORAGE_KEY = "simpleTodoListTasks";
+      let tasks = [];
+      let currentFilter = "all";
+
+      // DOM 요소 참조
+      const todoList = document.getElementById("todoList");
+      const newTaskInput = document.getElementById("newTaskInput");
+      const addTaskButton = document.getElementById("addTaskButton");
+      const filterGroup = document.getElementById("filterGroup");
+      const completeAllButton = document.getElementById("completeAllButton");
+      const todoCount = document.getElementById("todoCount");
+      const deleteAllFilteredButton = document.getElementById(
+        "deleteAllFilteredButton"
+      );
+
+      // --- 2. LocalStorage CRUD 기능 ---
+
+      /**
+       * LocalStorage에서 할 일 목록을 불러옵니다.
+       */
+      function loadTasks() {
+        try {
+          const storedTasks = localStorage.getItem(TODO_STORAGE_KEY);
+          tasks = storedTasks ? JSON.parse(storedTasks) : [];
+        } catch (error) {
+          console.error("할 일 목록 로드 중 오류 발생:", error);
+          tasks = [];
+        }
+      }
+
+      /**
+       * 현재 할 일 목록(tasks)을 LocalStorage에 저장합니다.
+       */
+      function saveTasks() {
+        try {
+          localStorage.setItem(TODO_STORAGE_KEY, JSON.stringify(tasks));
+          updateFooter(); // 저장 후 푸터 및 버튼 상태 업데이트
+        } catch (error) {
+          console.error("할 일 목록 저장 중 오류 발생:", error);
+        }
+      }
+
+      // --- 3. UI 렌더링 및 업데이트 기능 ---
+
+      /**
+       * 할 일 목록을 HTML로 변환하여 렌더링합니다.
+       */
+      function renderTasks() {
+        // 1. 현재 필터에 맞는 항목만 선택
+        const filteredTasks = tasks.filter((task) => {
+          if (currentFilter === "active") return !task.completed;
+          if (currentFilter === "completed") return task.completed;
+          return true; // 'all'
+        });
+
+        // 2. HTML 생성
+        todoList.innerHTML = filteredTasks
+          .map((task) => {
+            const checked = task.completed ? "checked" : "";
+            const completedClass = task.completed ? "task-completed" : "";
+            const emoji = task.completed ? "✅" : "⏳";
+
+            return `
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-3 ${completedClass}" data-id="${task.id}">
+                        <div class="form-check d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" ${checked} data-action="toggle" id="task-${task.id}">
+                            <label class="form-check-label task-label ms-2" for="task-${task.id}">
+                                ${emoji} ${task.text}
+                            </label>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-danger border-0" data-action="delete" title="삭제">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                            </svg>
+                        </button>
+                    </li>
+                `;
+          })
+          .join("");
+
+        // 3. 목록이 비었을 때 메시지 표시
+        if (filteredTasks.length === 0 && tasks.length > 0) {
+          todoList.innerHTML = `<li class="list-group-item text-center text-muted py-3">선택한 필터에는 항목이 없습니다.</li>`;
+        } else if (tasks.length === 0) {
+          todoList.innerHTML = `<li class="list-group-item text-center text-muted py-3">새로운 할 일을 추가해보세요!</li>`;
+        }
+      }
+
+      /**
+       * 푸터에 남은 할 일 개수와 '전체 완료' 버튼 텍스트를 업데이트합니다.
+       */
+      function updateFooter() {
+        const activeCount = tasks.filter((t) => !t.completed).length;
+        const totalCount = tasks.length;
+
+        // 1. 푸터 텍스트 업데이트
+        todoCount.textContent = `남은 할 일: ${activeCount}개 (총 ${totalCount}개)`;
+
+        // 2. 버튼 상태 및 텍스트 업데이트 (토글 기능)
+        if (totalCount === 0) {
+          // 할 일이 없는 경우 버튼 비활성화 및 기본 상태
+          completeAllButton.textContent = "전체 완료";
+          completeAllButton.disabled = true;
+          deleteAllFilteredButton.disabled = true;
+          completeAllButton.classList.remove("btn-warning", "text-dark");
+          completeAllButton.classList.add("btn-outline-secondary");
+        } else if (activeCount === 0) {
+          // 모든 할 일이 완료된 경우: '완료 취소' 상태
+          completeAllButton.textContent = "완료 취소";
+          completeAllButton.disabled = false;
+          deleteAllFilteredButton.disabled = false;
+          completeAllButton.classList.remove("btn-outline-secondary");
+          completeAllButton.classList.add("btn-warning", "text-dark");
+        } else {
+          // 할 일이 남아있는 경우: '전체 완료' 상태
+          completeAllButton.textContent = "전체 완료";
+          completeAllButton.disabled = false;
+          deleteAllFilteredButton.disabled = false;
+          completeAllButton.classList.remove("btn-warning", "text-dark");
+          completeAllButton.classList.add("btn-outline-secondary");
+        }
+      }
+
+      // --- 4. 데이터 조작 기능 ---
+
+      /**
+       * 새로운 할 일을 추가합니다.
+       */
+      function addTask() {
+        const text = newTaskInput.value.trim();
+        if (text === "") {
+          newTaskInput.focus();
+          return;
+        }
+
+        const newTask = {
+          // 간단한 유니크 ID 생성
+          id: Date.now().toString(),
+          text: text,
+          completed: false,
+        };
+
+        tasks.push(newTask);
+        newTaskInput.value = ""; // 입력창 비우기
+
+        saveTasks();
+        renderTasks();
+      }
+
+      /**
+       * 특정 ID의 할 일 완료 상태를 토글합니다.
+       * @param {string} id - 토글할 할 일의 ID
+       */
+      function toggleTask(id) {
+        const taskIndex = tasks.findIndex((t) => t.id === id);
+        if (taskIndex > -1) {
+          tasks[taskIndex].completed = !tasks[taskIndex].completed;
+          saveTasks();
+          renderTasks();
+        }
+      }
+
+      /**
+       * 특정 ID의 할 일을 삭제합니다.
+       * @param {string} id - 삭제할 할 일의 ID
+       */
+      function deleteTask(id) {
+        tasks = tasks.filter((t) => t.id !== id);
+        saveTasks();
+        renderTasks();
+      }
+
+      /**
+       * '전체 완료' 또는 '완료 취소' 기능을 수행합니다.
+       */
+      function completeAllTasks() {
+        const allCompleted = tasks.every((t) => t.completed);
+
+        if (allCompleted) {
+          // 완료 취소 (모두 미완료 상태로 되돌리기)
+          tasks = tasks.map((t) => ({ ...t, completed: false }));
+        } else {
+          // 전체 완료 (미완료된 항목을 모두 완료 상태로 변경)
+          tasks = tasks.map((t) => ({ ...t, completed: true }));
+        }
+
+        saveTasks();
+        renderTasks();
+      }
+
+      /**
+       * 현재 필터에 해당하는 모든 할 일 목록을 삭제합니다. (확인 UI는 생략)
+       */
+      function deleteAllFilteredTasks() {
+        let tasksToKeep = [];
+
+        if (currentFilter === "all") {
+          // '전체' 필터: 모든 할 일을 삭제합니다.
+          tasksToKeep = [];
+        } else if (currentFilter === "active") {
+          // '할 일' 필터: 미완료 항목(active)을 삭제하고, 완료된 항목(completed)만 남깁니다.
+          tasksToKeep = tasks.filter((t) => t.completed);
+        } else if (currentFilter === "completed") {
+          // '완료' 필터: 완료된 항목(completed)을 삭제하고, 미완료 항목(active)만 남깁니다.
+          tasksToKeep = tasks.filter((t) => !t.completed);
+        } else {
+          return;
+        }
+
+        if (tasksToKeep.length === tasks.length) {
+          // 삭제할 항목이 없는 경우
+          return;
+        }
+
+        tasks = tasksToKeep;
+        saveTasks();
+        renderTasks();
+      }
+
+      /**
+       * 목록 필터를 변경하고 UI를 업데이트합니다.
+       * @param {string} filter - 'all', 'active', 'completed' 중 하나
+       */
+      function setFilter(filter) {
+        currentFilter = filter;
+
+        // 필터 버튼의 Active 상태 업데이트
+        filterGroup.querySelectorAll("button").forEach((btn) => {
+          if (btn.getAttribute("data-filter") === filter) {
+            btn.classList.add("active");
+          } else {
+            btn.classList.remove("active");
+          }
+        });
+
+        renderTasks();
+      }
+
+      // --- 5. 이벤트 리스너 설정 ---
+
+      // 1. 페이지 로드 시 초기화
+      document.addEventListener("DOMContentLoaded", () => {
+        loadTasks();
+        renderTasks();
+      });
+
+      // 2. 할 일 추가 이벤트 (버튼 클릭)
+      addTaskButton.addEventListener("click", addTask);
+
+      // 3. 할 일 추가 이벤트 (Enter 키 입력)
+      newTaskInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          addTask();
+        }
+      });
+
+      // 4. 목록 항목 이벤트 위임 (체크박스/삭제 버튼)
+      todoList.addEventListener("click", (e) => {
+        const target = e.target;
+        const listItem = target.closest("li[data-id]");
+        if (!listItem) return;
+
+        const id = listItem.getAttribute("data-id");
+        const action = target
+          .closest("[data-action]")
+          ?.getAttribute("data-action");
+
+        if (
+          action === "toggle" ||
+          target.classList.contains("form-check-input")
+        ) {
+          toggleTask(id);
+        } else if (action === "delete") {
+          deleteTask(id);
+        }
+      });
+
+      // 5. 필터 버튼 이벤트
+      filterGroup.addEventListener("click", (e) => {
+        const filterBtn = e.target.closest("button[data-filter]");
+        if (filterBtn) {
+          setFilter(filterBtn.getAttribute("data-filter"));
+        }
+      });
+
+      // 6. 전체 완료/미완료 버튼 이벤트
+      completeAllButton.addEventListener("click", completeAllTasks);
+
+      // 7. 필터 목록 삭제 버튼 이벤트 (새로 추가됨)
+      deleteAllFilteredButton.addEventListener("click", deleteAllFilteredTasks);
+    </script>
+  </body>
+</html>

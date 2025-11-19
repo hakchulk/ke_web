@@ -1,0 +1,7 @@
+html,
+body {
+  /* 기본적으로  body에 100%가 설정 되어 있지 않다. */
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}

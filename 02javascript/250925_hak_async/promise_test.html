@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let url = "https://jsonplaceholder.typicode.com/posts/12";
+
+      function fetchtest() {
+        return fetch(url)
+          .then((response) => response.json())
+          .catch((error) => console.log("실패:" + error.message));
+      }
+
+      function fetchtest2() {
+        return fetch(url)
+          .then((response) => response.json())
+          .then((data) => console.log(data));
+      }
+      let p1 = fetchtest();
+      p1.then((data) => console.log(data));
+
+      let p2 = fetchtest2();
+      console.log("p2:", p2);
+    </script>
+  </body>
+</html>

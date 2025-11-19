@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="demo"></div>
+    <script>
+      getText("fetch_info.txt"); // 비동기 처리
+      console.log("myText2:", "demo2"); // 여기가 먼저 실행됨
+
+      async function getText(file) {
+        let myObject = await fetch(file);
+        let myText = await myObject.text();
+        document.getElementById("demo").innerHTML = myText;
+        console.log("myText:", myText);
+      }
+    </script>
+  </body>
+</html>

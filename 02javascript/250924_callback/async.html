@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      async function fn1(num) {
+        // 비동기 작업 수행
+        let p = new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(`${num} : 성공!`);
+          }, 1000);
+          //   reject(`${num} : 실패!`); // 강제 실패는 Promise체인이 멈춤
+        });
+
+        return p;
+      }
+
+      console.log("시작");
+      fn1(1)
+        .then((result) => {
+          console.log(result);
+          return fn1(2);
+        })
+        .then((result) => {
+          console.log(result);
+          return fn1(3);
+        })
+        .then((result) => {
+          console.log(result);
+          console.log("끝");
+        })
+        .catch((error) => {
+          console.log("error : " + error);
+        });
+    </script>
+  </body>
+</html>

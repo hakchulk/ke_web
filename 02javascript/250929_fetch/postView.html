@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/axios.min.js"
+      integrity="sha512-h9644v03pHqrIHThkvXhB2PJ8zf5E9IyVnrSfZg8Yj8k4RsO4zldcQc4Bi9iVLUCCsqNY0b4WXVV4UB+wbWENA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+      integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="script.js"></script>
+    <style>
+      .content-box {
+        max-width: 700px;
+        margin: auto;
+      }
+
+      .value {
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-5 content-box">
+      <div class="card shadow-sm">
+        <div class="card-header bg-light text-dark">
+          <h4 class="mb-0">
+            📄 <span id="postid"></span>. <span id="title"></span>
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <p><span id="name"></span> (<span id="email"></span>)</p>
+          </div>
+          <div class="mb-3 value" id="postbody"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const url = new URL(window.location.href); // 현재 페이지의 URL
+      const params = new URLSearchParams(url.search);
+      const nameElm = document.getElementById("name");
+      const emailElm = document.getElementById("email");
+      const postBodyElm = document.getElementById("postbody");
+      const titleElm = document.getElementById("title");
+      const postidElm = document.getElementById("postid");
+
+      async function getPost(idPost) {
+        const res = await axios.get(
+          `https://jsonplaceholder.typicode.com/posts/${idPost}`
+        );
+        const pd = res.data;
+        console.log(res);
+        console.log(pd);
+
+        postidElm.innerText = pd.id;
+        postBodyElm.innerText = pd.body;
+        titleElm.innerText = pd.title;
+
+        const u = await getUser(pd.userId);
+        nameElm.innerText = u.name;
+        emailElm.innerText = u.email;
+      }
+
+      getPost(params.get("id"));
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.bundle.min.js"
+      integrity="sha512-HvOjJrdwNpDbkGJIG2ZNqDlVqMo77qbs4Me4cah0HoDrfhrbA+8SBlZn1KrvAQw7cILLPFJvdwIgphzQmMm+Pw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </body>
+</html>

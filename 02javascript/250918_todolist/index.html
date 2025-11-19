@@ -33,6 +33,13 @@
           <button class="btn btn-primary ms-3" id="btnInp" style="width: 100px">
             입력
           </button>
+          <button
+            class="d-none btn btn-warning ms-3"
+            id="btnModi"
+            style="width: 100px"
+          >
+            수정
+          </button>
         </div>
       </div>
       <div class="row py-3">
@@ -57,11 +64,11 @@
 
     <script src="script.js"></script>
     <script>
+      let listView = [];
       const btnInp = document.getElementById("btnInp");
       const txtInp = document.getElementById("inp");
       const btnDelAll = document.getElementById("delAll");
       const todoView = document.querySelector(".todoView");
-      //   const listData = [];
 
       btnInp.addEventListener("click", function () {
         console.log(txtInp);
@@ -70,25 +77,29 @@
           alert("할일을 입력하세요");
           return;
         } else {
-          if (btnInp.innerText == "수정") {
-            // 수정
-            listView[_curIdx].todo = txtInp.value;
-            btnInp.innerText = "입력";
-          } else {
-            // 입력
-            listView.push({ todo: txtInp.value, complete: false });
-          }
+          // 입력
+          listView.push({ todo: txtInp.value, complete: false });
+          saveData();
 
           viewList();
         }
       });
+      btnModi.addEventListener("click", function (idx) {
+        // 수정
+        listView[idx].todo = txtInp.value;
+        saveData();
+        btnInp.classList.toggle("d-none");
+        btnModi.classList.toggle("d-none");
+        viewList();
+      });
 
       btnDelAll.addEventListener("click", function () {
         todoView.innerHTML = "";
-        listView.length = 0; // listData = [];
+        listView = [];
+        saveData();
       });
 
-      viewList();
+      init();
     </script>
 
     <script
