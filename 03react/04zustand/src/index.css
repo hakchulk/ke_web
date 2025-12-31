@@ -1,0 +1,4 @@
+@import "tailwindcss";
+
+/* daisyUI를 Tailwind v4에 연동 */
+@plugin "daisyui";
